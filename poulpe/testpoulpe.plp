@@ -1,0 +1,28 @@
+# Fichier de test
+# Les lignes de commentaires commencent par #
+procedure principale()
+  i = 12+3;
+  si (i>14)
+    j=1;
+  sinonsi(i<5)
+    j=4;
+  sinon
+    j=42;
+  finsi
+  tantque(j<5)
+    j = j+1;
+    i = i-1;
+  fintantque
+  repeter
+    i = i+1;
+  jusqua(i > 20)
+  f=0;
+  pour(; f<10; f = f+1)
+    i = i+1;
+  finpour
+
+  ecrire(f, "chut");
+  lire(h,g,i);
+
+finproc
+# Commentaire Final
