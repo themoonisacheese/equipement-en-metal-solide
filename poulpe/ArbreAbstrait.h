@@ -96,22 +96,28 @@ class NoeudInstSiRiche : public Noeud {
 };
 
 class NoeudInstPour : public Noeud {
-// Classe pour représenter un noeud "instruction repeter" 
-//  et ses fils : la condition, les 
+// Classe pour représenter un noeud "instruction pour" 
   public:
     NoeudInstPour(Noeud * startAff, Noeud * condition, Noeud * endAff, Noeud * seqInst);
-     // Construit une "instruction si" riche
    ~NoeudInstPour() {} // A cause du destructeur virtuel de la classe Noeud
-    int executer();  // Exécute l'instruction si riche.
+    int executer();  // Exécute l'instruction
 
   private:
       Noeud * m_startAff;
       Noeud * m_condition;
       Noeud * m_endAff;
       Noeud * m_seqInst;
+};
 
+class NoeudInstLire : public Noeud {
+// Classe pour représenter un noeud "instruction lire" 
+  public:
+    NoeudInstLire(std::vector<Noeud*> lectures);
+   ~NoeudInstLire() {} // A cause du destructeur virtuel de la classe Noeud
+    int executer();  // Exécute l'instruction
 
-
+  private:
+      std::vector<Noeud*> m_lectures;
 };
 
 //class NoeudInstSiRiche : public Noeud{

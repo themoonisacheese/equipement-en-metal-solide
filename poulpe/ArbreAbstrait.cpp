@@ -104,18 +104,32 @@ int NoeudInstSiRiche::executer(){
 
 NoeudInstPour::NoeudInstPour(Noeud * startAff, Noeud * condition, Noeud * endAff, Noeud * seqInst)
 :m_startAff(startAff), m_condition(condition), m_endAff(endAff), m_seqInst(seqInst) {
-    
+
 }
 
-NoeudInstPour::executer(){
+int NoeudInstPour::executer(){
     if (m_startAff != nullptr) {
         m_startAff->executer();
     }
-    while(m_condition->executer){
+    while(m_condition->executer()){
         m_seqInst->executer();
         if (m_endAff != nullptr) {
             m_endAff->executer();
         }
+    }
+    return 0;
+}
+
+NoeudInstLire::NoeudInstLire(std::vector<Noeud*> lectures)
+:m_lectures(lectures){
+
+}
+
+int NoeudInstLire::executer(){
+    for (Noeud* lecture : m_lectures) {
+        int in;
+        std::cin>>in;
+        ((SymboleValue*)lecture)->setValeur(in);
     }
     return 0;
 }

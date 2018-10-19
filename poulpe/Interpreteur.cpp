@@ -249,5 +249,5 @@ Noeud*  Interpreteur::instLire(){
     testerEtAvancer(")");
     testerEtAvancer(";");
 
-    return nullptr;
+    return new NoeudInstLire(lectures);
 }
