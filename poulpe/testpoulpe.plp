@@ -21,7 +21,7 @@ procedure principale()
     i = i+1;
   finpour
 
-  ecrire(f, "chut");
+  ecrire(f);
   lire(h,g,i);
 
 finproc

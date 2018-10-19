@@ -117,7 +117,7 @@ NoeudInstEcrire::NoeudInstEcrire(std::vector<Noeud*> sequences)
 int NoeudInstEcrire::executer() {
     for (Noeud* seq : m_sequences) {
         if (((SymboleValue*)seq)-> estDefini()){
-            std::cout << (SymboleValue*)seq;
+            std::cout << seq->executer();
         }
         else {
             throw "essaie d'affichage d'une valeur indefinie";
