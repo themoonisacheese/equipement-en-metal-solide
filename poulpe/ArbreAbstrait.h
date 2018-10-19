@@ -81,4 +81,10 @@ class NoeudInstSi : public Noeud {
     Noeud*  m_sequence;
 };
 
+//class NoeudInstSiRiche : public Noeud{
+//    public:
+//       
+//};
+
+
 #endif /* ARBREABSTRAIT_H */
