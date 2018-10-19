@@ -126,3 +126,56 @@ int NoeudInstEcrire::executer() {
     return 0; // La valeur renvoyée ne représente rien !
 }
 
+
+NoeudInstSiRiche::NoeudInstSiRiche(std::vector<Noeud*> conditions, std::vector<Noeud*> sequences)
+: m_conditions(conditions), m_sequences(sequences) {
+}
+
+int NoeudInstSiRiche::executer(){
+    int i =0;
+    for (Noeud * noeud : m_conditions) {//pour chaque condition
+        if(noeud != nullptr){
+            if(noeud->executer()){//si elle est vraie
+                m_sequences[i]->executer(); //executer sa sequence
+                break; //si la sequence a eu lieu, aucune autre sequence ne peut avoir lieu.
+            }
+        }else{ //la sequence est dans un "sinon". on l'execute de toutes manieres, car on ne parvient ici que si toutes les autres conditions sont fausses.
+            m_sequences[i]->executer();
+            break;
+        }
+        i++;
+    }
+    return 0;
+}
+
+NoeudInstPour::NoeudInstPour(Noeud * startAff, Noeud * condition, Noeud * endAff, Noeud * seqInst)
+:m_startAff(startAff), m_condition(condition), m_endAff(endAff), m_seqInst(seqInst) {
+
+}
+
+int NoeudInstPour::executer(){
+    if (m_startAff != nullptr) {
+        m_startAff->executer();
+    }
+    while(m_condition->executer()){
+        m_seqInst->executer();
+        if (m_endAff != nullptr) {
+            m_endAff->executer();
+        }
+    }
+    return 0;
+}
+
+NoeudInstLire::NoeudInstLire(std::vector<Noeud*> lectures)
+:m_lectures(lectures){
+
+}
+
+int NoeudInstLire::executer(){
+    for (Noeud* lecture : m_lectures) {
+        int in;
+        std::cin>>in;
+        ((SymboleValue*)lecture)->setValeur(in);
+    }
+    return 0;
+}

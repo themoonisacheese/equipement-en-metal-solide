@@ -170,8 +170,8 @@ Noeud*  Interpreteur::instSiRiche(){
         conditions.push_back(nullptr); // on pushback un nullptr pour avoir un nombre identique de conditions et de sequences.
         seqInsts.push_back(seqInst());
     }
-    testerEtAvancer("finsi");
-    return nullptr;
+    testerEtAvancer("finsi"); 
+    return new NoeudInstSiRiche(conditions, seqInsts);
 }
 Noeud*  Interpreteur::instTantQue(){
     testerEtAvancer("tantque");
@@ -208,7 +208,7 @@ Noeud*  Interpreteur::instPour(){
     testerEtAvancer(")");
     Noeud* seq = seqInst();
     testerEtAvancer("finpour");
-    return nullptr;
+    return new NoeudInstPour(startAff, condition,endAff, seq);
 }
 Noeud*  Interpreteur::instEcrire(){
     testerEtAvancer("ecrire");
@@ -249,5 +249,5 @@ Noeud*  Interpreteur::instLire(){
     testerEtAvancer(")");
     testerEtAvancer(";");
 
-    return nullptr;
+    return new NoeudInstLire(lectures);
 }
