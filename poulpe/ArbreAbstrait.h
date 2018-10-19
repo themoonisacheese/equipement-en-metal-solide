@@ -86,5 +86,28 @@ class NoeudInstSi : public Noeud {
 //       
 //};
 
+class NoeudInstTantQue : public Noeud {
+// Classe pour représenter un noeud "instruction tant que"
+//  et ses 2 fils : la condition du while et la séquence d'instruction associée
+public:
+    NoeudInstTantQue(Noeud* condition, Noeud* sequence);
+    ~NoeudInstTantQue() {}
+    int executer();
+    
+private:
+    Noeud* m_condition;
+    Noeud* m_sequence;
+};
+
+class NoeudInstRepeter : public Noeud {
+public:
+    NoeudInstRepeter(Noeud* condition, Noeud* sequence);
+    ~NoeudInstRepeter() {}
+    int executer();
+    
+private:
+    Noeud* m_condition;
+    Noeud* m_sequence;
+};
 
 #endif /* ARBREABSTRAIT_H */
