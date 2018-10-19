@@ -81,6 +81,20 @@ class NoeudInstSi : public Noeud {
     Noeud*  m_sequence;
 };
 
+class NoeudInstSiRiche : public Noeud {
+// Classe pour représenter un noeud "instruction si" riche
+//  et ses multiple fils : les condition des si et les séquences d'instructions associées
+  public:
+    NoeudInstSiRiche(std::vector<Noeud*> conditions, std::vector<Noeud*> sequences);
+     // Construit une "instruction si" riche
+   ~NoeudInstSiRiche() {} // A cause du destructeur virtuel de la classe Noeud
+    int executer();  // Exécute l'instruction si riche.
+
+  private:
+      std::vector<Noeud*> m_conditions;
+      std::vector<Noeud*> m_sequences;
+};
+
 //class NoeudInstSiRiche : public Noeud{
 //    public:
 //       

@@ -79,3 +79,25 @@ int NoeudInstSi::executer() {
   if (m_condition->executer()) m_sequence->executer();
   return 0; // La valeur renvoyée ne représente rien !
 }
+
+
+NoeudInstSiRiche::NoeudInstSiRiche(std::vector<Noeud*> conditions, std::vector<Noeud*> sequences)
+: m_conditions(conditions), m_sequences(sequences) {
+}
+
+int NoeudInstSiRiche::executer(){
+    int i =0;
+    for (Noeud * noeud : m_conditions) {//pour chaque condition
+        if(noeud != nullptr){
+            if(noeud->executer()){//si elle est vraie
+                m_sequences[i]->executer(); //executer sa sequence
+                break; //si la sequence a eu lieu, aucune autre sequence ne peut avoir lieu.
+            }
+        }else{ //la sequence est dans un "sinon". on l'execute de toutes manieres, car on ne parvient ici que si toutes les autres conditions sont fausses.
+            m_sequences[i]->executer();
+            break;
+        }
+        i++;
+    }
+    return 0;
+}
