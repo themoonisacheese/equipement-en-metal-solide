@@ -101,3 +101,21 @@ int NoeudInstSiRiche::executer(){
     }
     return 0;
 }
+
+NoeudInstPour::NoeudInstPour(Noeud * startAff, Noeud * condition, Noeud * endAff, Noeud * seqInst)
+:m_startAff(startAff), m_condition(condition), m_endAff(endAff), m_seqInst(seqInst) {
+    
+}
+
+NoeudInstPour::executer(){
+    if (m_startAff != nullptr) {
+        m_startAff->executer();
+    }
+    while(m_condition->executer){
+        m_seqInst->executer();
+        if (m_endAff != nullptr) {
+            m_endAff->executer();
+        }
+    }
+    return 0;
+}

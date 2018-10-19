@@ -95,6 +95,25 @@ class NoeudInstSiRiche : public Noeud {
       std::vector<Noeud*> m_sequences;
 };
 
+class NoeudInstPour : public Noeud {
+// Classe pour représenter un noeud "instruction repeter" 
+//  et ses fils : la condition, les 
+  public:
+    NoeudInstPour(Noeud * startAff, Noeud * condition, Noeud * endAff, Noeud * seqInst);
+     // Construit une "instruction si" riche
+   ~NoeudInstPour() {} // A cause du destructeur virtuel de la classe Noeud
+    int executer();  // Exécute l'instruction si riche.
+
+  private:
+      Noeud * m_startAff;
+      Noeud * m_condition;
+      Noeud * m_endAff;
+      Noeud * m_seqInst;
+
+
+
+};
+
 //class NoeudInstSiRiche : public Noeud{
 //    public:
 //       
