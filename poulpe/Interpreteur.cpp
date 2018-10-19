@@ -180,7 +180,7 @@ Noeud*  Interpreteur::instTantQue(){
     testerEtAvancer(")");
     Noeud* instructions = seqInst();
     testerEtAvancer("fintantque");
-    return nullptr;
+    return new NoeudInstTantQue(condition, instructions);
 }
 Noeud*  Interpreteur::instRepeter(){
     testerEtAvancer("repeter");
@@ -189,7 +189,7 @@ Noeud*  Interpreteur::instRepeter(){
     testerEtAvancer("(");
     Noeud* condition = expression();
     testerEtAvancer(")");
-    return nullptr;
+    return new NoeudInstRepeter(condition, instructions);
 }
 Noeud*  Interpreteur::instPour(){
     testerEtAvancer("pour");
@@ -230,7 +230,7 @@ Noeud*  Interpreteur::instEcrire(){
     testerEtAvancer(")");
     testerEtAvancer(";");
 
-    return nullptr;
+    return new NoeudInstEcrire(affichages);
 }
 Noeud*  Interpreteur::instLire(){
     testerEtAvancer("lire");

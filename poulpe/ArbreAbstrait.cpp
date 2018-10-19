@@ -90,7 +90,7 @@ NoeudInstTantQue::NoeudInstTantQue(Noeud* condition, Noeud* sequence)
 
 int NoeudInstTantQue::executer() {
     while(m_condition->executer()) m_sequence->executer();
-    return 0;
+    return 0; // La valeur renvoyée ne représente rien !
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -103,6 +103,26 @@ NoeudInstRepeter::NoeudInstRepeter(Noeud* condition, Noeud* sequence)
 
 int NoeudInstRepeter::executer() {
     do {m_sequence->executer(); } while(m_condition->executer());
-    return 0;
+    return 0; // La valeur renvoyée ne représente rien !
+}
+
+//////////////////////////////////////////////////////////////////////
+// NoeudInstTantQue
+//////////////////////////////////////////////////////////////////////
+
+NoeudInstEcrire::NoeudInstEcrire(std::vector<Noeud*> sequences)
+: m_sequences(sequences) {
+}
+
+int NoeudInstEcrire::executer() {
+    for (Noeud* seq : m_sequences) {
+        if (((SymboleValue*)seq)-> estDefini()){
+            std::cout << (SymboleValue*)seq;
+        }
+        else {
+            throw "essaie d'affichage d'une valeur indefinie";
+        }
+    }
+    return 0; // La valeur renvoyée ne représente rien !
 }
 

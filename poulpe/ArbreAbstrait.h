@@ -110,4 +110,14 @@ private:
     Noeud* m_sequence;
 };
 
+class NoeudInstEcrire : public Noeud {
+public:
+    NoeudInstEcrire(std::vector<Noeud*> sequences);
+    ~NoeudInstEcrire() {}
+    int executer();
+    
+private:
+    std::vector<Noeud*> m_sequences;
+};
+
 #endif /* ARBREABSTRAIT_H */
