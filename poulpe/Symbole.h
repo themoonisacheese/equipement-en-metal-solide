@@ -14,7 +14,9 @@ public:
 	inline bool operator != (const string  & ch) const { return ! (*this == ch); } // Pour tester la différence...
 	inline const string & getChaine() const { return m_chaine;} // Accesseur
 	friend ostream & operator <<(ostream & cout, const Symbole & symbole); // Fonction amie pour pouvoir afficher un symbole sur cout 
+        void toPython(ostream &out, unsigned int indentation);
 
+        
 private:
     	enum m_categorie { MOTCLE, VARIABLE, ENTIER, CHAINE, INDEFINI, FINDEFICHIER };
 	string           m_chaine;             // Chaîne du symbole

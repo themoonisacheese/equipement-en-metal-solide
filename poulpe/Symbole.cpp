@@ -61,3 +61,8 @@ ostream & operator<<(ostream & cout, const Symbole & symbole) {
   cout << " : \"" << symbole.m_chaine << "\"";
   return cout;
 }
+
+void Symbole::toPython(ostream &out, unsigned int indentation){
+    out<< m_chaine;
+}
+

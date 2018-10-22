@@ -20,7 +20,7 @@ class Noeud {
     virtual int  executer() =0 ; // Méthode pure (non implémentée) qui rend la classe abstraite
     virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
     virtual ~Noeud() {} // Présence d'un destructeur virtuel conseillée dans les classes abstraites
-    virtual void toPython(ostream &out, unsigned int identation);
+    virtual void toPython(ostream &out, unsigned int indentation); //traduit l'instruction en python et l'ecrit dans out.
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,6 +32,8 @@ class NoeudSeqInst : public Noeud {
     ~NoeudSeqInst() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();    // Exécute chaque instruction de la séquence
     void ajoute(Noeud* instruction);  // Ajoute une instruction à la séquence
+    void toPython(ostream &out, unsigned int indentation); //traduit l'instruction en python et l'ecrit dans out.
+
 
   private:
     vector<Noeud *> m_instructions; // pour stocker les instructions de la séquence
@@ -45,7 +47,8 @@ class NoeudAffectation : public Noeud {
      NoeudAffectation(Noeud* variable, Noeud* expression); // construit une affectation
     ~NoeudAffectation() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();        // Exécute (évalue) l'expression et affecte sa valeur à la variable
-
+    void toPython(ostream &out, unsigned int indentation);
+    
   private:
     Noeud* m_variable;
     Noeud* m_expression;
@@ -60,7 +63,8 @@ class NoeudOperateurBinaire : public Noeud {
     // Construit une opération binaire : operandeGauche operateur OperandeDroit
    ~NoeudOperateurBinaire() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();            // Exécute (évalue) l'opération binaire)
-
+    void toPython(ostream &out, unsigned int indentation);
+    
   private:
     Symbole m_operateur;
     Noeud*  m_operandeGauche;
@@ -144,6 +148,8 @@ public:
     NoeudInstRepeter(Noeud* condition, Noeud* sequence);
     ~NoeudInstRepeter() {}
     int executer();
+    void toPython(ostream &out, unsigned int indentation);
+
     
 private:
     Noeud* m_condition;

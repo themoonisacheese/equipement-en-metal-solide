@@ -17,6 +17,10 @@ int NoeudSeqInst::executer() {
     m_instructions[i]->executer(); // on exécute chaque instruction de la séquence
   return 0; // La valeur renvoyée ne représente rien !
 }
+void NoeudSeqInst::toPython(ostream &out, unsigned int indentation){
+    for (unsigned int i = 0; i < m_instructions.size(); i++)
+        m_instructions[i]->toPython(out, indentation);
+}
 
 void NoeudSeqInst::ajoute(Noeud* instruction) {
   if (instruction!=nullptr) m_instructions.push_back(instruction);
@@ -34,6 +38,12 @@ int NoeudAffectation::executer() {
   int valeur = m_expression->executer(); // On exécute (évalue) l'expression
   ((SymboleValue*) m_variable)->setValeur(valeur); // On affecte la variable
   return 0; // La valeur renvoyée ne représente rien !
+}
+void NoeudAffectation::toPython(ostream &out, unsigned int indentation){
+    m_variable->toPython(out, indentation);
+    out << " = ";
+    m_expression->toPython(out, 0);
+    out << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -66,6 +76,12 @@ int NoeudOperateurBinaire::executer() {
     valeur = og / od;
   }
   return valeur; // On retourne la valeur calculée
+}
+
+void NoeudOperateurBinaire::toPython(ostream &out, unsigned int indentation){
+    m_operandeGauche->toPython(out, indentation);
+    out<<" ";
+    m_operateur->toPython(out, indentation);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -106,6 +122,11 @@ int NoeudInstRepeter::executer() {
     do {m_sequence->executer(); } while(m_condition->executer());
     return 0; // La valeur renvoyée ne représente rien !
 }
+
+void NoeudInstRepeter::toPython(ostream &out, unsigned int indentation){
+    
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // NoeudInstTantQue
