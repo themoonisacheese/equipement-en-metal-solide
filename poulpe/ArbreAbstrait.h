@@ -106,6 +106,7 @@ class NoeudInstPour : public Noeud {
     NoeudInstPour(Noeud * startAff, Noeud * condition, Noeud * endAff, Noeud * seqInst);
    ~NoeudInstPour() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction
+    void toPython(ostream& out, unsigned int indentation);
 
   private:
       Noeud * m_startAff;
@@ -137,6 +138,7 @@ public:
     NoeudInstTantQue(Noeud* condition, Noeud* sequence);
     ~NoeudInstTantQue() {}
     int executer();
+    void toPython(ostream& out, unsigned int indentation);
     
 private:
     Noeud* m_condition;

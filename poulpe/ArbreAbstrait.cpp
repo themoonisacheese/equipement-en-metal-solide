@@ -110,8 +110,17 @@ int NoeudInstTantQue::executer() {
     return 0; // La valeur renvoyée ne représente rien !
 }
 
+void NoeudInstTantQue::toPython(ostream& out, unsigned int indentation) {
+    out << setw(4*indentation) << "while ";
+    m_condition -> toPython(out,0);
+    out << " :" << endl;
+    m_sequence -> toPython(out, indentation+1);
+    out << endl;
+}
+
+
 //////////////////////////////////////////////////////////////////////
-// NoeudInstTantQue
+// NoeudInstRepeter
 //////////////////////////////////////////////////////////////////////
 
 NoeudInstRepeter::NoeudInstRepeter(Noeud* condition, Noeud* sequence)
@@ -129,7 +138,7 @@ void NoeudInstRepeter::toPython(ostream &out, unsigned int indentation){
 
 
 //////////////////////////////////////////////////////////////////////
-// NoeudInstTantQue
+// NoeudInstEcrire
 //////////////////////////////////////////////////////////////////////
 
 NoeudInstEcrire::NoeudInstEcrire(std::vector<Noeud*> sequences)
@@ -189,6 +198,18 @@ int NoeudInstPour::executer(){
     }
     return 0;
 }
+
+void NoeudInstPour::toPython(ostream& out, unsigned int indentation) {
+    out << setw(4*indentation) << "for ";
+    m_startAff -> toPython(out,0);
+    m_condition -> toPython(out,0);
+    m_endAff -> toPython(out, 0);
+    out << " :" << endl;
+    m_seqInst -> toPython(out, indentation+1);
+    out << endl;
+}
+
+
 
 NoeudInstLire::NoeudInstLire(std::vector<Noeud*> lectures)
 :m_lectures(lectures){
