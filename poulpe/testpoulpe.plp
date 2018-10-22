@@ -21,8 +21,8 @@ procedure principale()
     i = i+1;
   finpour
 
-  ecrire(f);
-  lire(h,g,i);
+  ecrire("suus = ", i);
+  lire(g);
 
 finproc
 # Commentaire Final

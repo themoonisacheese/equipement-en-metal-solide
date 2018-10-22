@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <typeinfo>
 #include "ArbreAbstrait.h"
 #include "Symbole.h"
 #include "SymboleValue.h"
@@ -116,7 +117,9 @@ NoeudInstEcrire::NoeudInstEcrire(std::vector<Noeud*> sequences)
 
 int NoeudInstEcrire::executer() {
     for (Noeud* seq : m_sequences) {
-        if (((SymboleValue*)seq)-> estDefini()){
+        if ( (typeid(*seq)==typeid(SymboleValue) &&  *((SymboleValue*)seq)== "<CHAINE>" )){
+            std::cout << ((SymboleValue*)seq)->getChaine();
+        }else if (((SymboleValue*)seq)-> estDefini()){
             std::cout << seq->executer();
         }
         else {
