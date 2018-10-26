@@ -4,4 +4,23 @@
         <activeConfTypeElem>1</activeConfTypeElem>
         <activeConfIndexElem>0</activeConfIndexElem>
     </data>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/SymboleValue.cpp</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/testpoulpe.plp</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/Symbole.cpp</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/ArbreAbstrait.h</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/Symbole.h</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/TableSymboles.cpp</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/Lecteur.h</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/Exceptions.h</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/TableSymboles.h</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/Lecteur.cpp</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/Interpreteur.cpp</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/ArbreAbstrait.cpp</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/main.cpp</file>
+            <file>file:/users/info/etu-s3/reboulef/equipement-en-metal-solide/poulpe/SymboleValue.h</file>
+        </group>
+    </open-files>
 </project-private>

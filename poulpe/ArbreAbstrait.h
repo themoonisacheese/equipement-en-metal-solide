@@ -121,6 +121,8 @@ class NoeudInstLire : public Noeud {
     NoeudInstLire(std::vector<Noeud*> lectures);
    ~NoeudInstLire() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction
+    void void toPython(ostream& out, unsigned int indentation);
+
 
   private:
       std::vector<Noeud*> m_lectures;

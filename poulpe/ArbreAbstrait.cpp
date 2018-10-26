@@ -133,7 +133,6 @@ int NoeudInstRepeter::executer() {
 }
 
 void NoeudInstRepeter::toPython(ostream &out, unsigned int indentation){
-    
 }
 
 
@@ -224,3 +223,13 @@ int NoeudInstLire::executer(){
     }
     return 0;
 }
+
+void void NoeudInstLire::toPython(ostream& out, unsigned int indentation) {
+    for (Noeud* lecture : m_lectures){
+        out << setw(4*indentation) << ((SymboleValue*)lecture)-> getChaine()
+                << "input(int())" << endl;
+        
+    }
+}
+
+
