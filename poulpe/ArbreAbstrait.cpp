@@ -81,7 +81,11 @@ int NoeudOperateurBinaire::executer() {
 void NoeudOperateurBinaire::toPython(ostream &out, unsigned int indentation){
     m_operandeGauche->toPython(out, indentation);
     out<<" ";
-    m_operateur->toPython(out, indentation);
+    m_operateur.toPython(out, indentation);
+    out<<" ";
+    m_operandeDroit->toPython(out, indentation);
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -203,7 +207,7 @@ void NoeudInstSiRiche::toPython(ostream &out, unsigned int indentation){
             noeud->toPython(out, 0);
             out << " :" << endl;
             m_sequences[i]->toPython(out, indentation +1);
-            if (m_conditions->size()>i && m_conditions[i+1] != nullptr) {
+            if (m_conditions.size()>i && m_conditions[i+1] != nullptr) {
                 out<< setw(4*indentation)<< "el"; // whoops
             }
         }else{ //la sequence est dans un "sinon".
@@ -260,7 +264,7 @@ int NoeudInstLire::executer(){
     return 0;
 }
 
-void void NoeudInstLire::toPython(ostream& out, unsigned int indentation) {
+void NoeudInstLire::toPython(ostream& out, unsigned int indentation) {
     for (Noeud* lecture : m_lectures){
         out << setw(4*indentation) << ((SymboleValue*)lecture)-> getChaine()
                 << "input(int())" << endl;
