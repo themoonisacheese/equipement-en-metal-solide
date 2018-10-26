@@ -94,7 +94,9 @@ class NoeudInstSiRiche : public Noeud {
      // Construit une "instruction si" riche
    ~NoeudInstSiRiche() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();  // Exécute l'instruction si riche.
+    void toPython(ostream &out, unsigned int indentation); //traduit l'instruction en python et l'ecrit dans out.
 
+    
   private:
       std::vector<Noeud*> m_conditions;
       std::vector<Noeud*> m_sequences;
@@ -161,7 +163,8 @@ public:
     NoeudInstEcrire(std::vector<Noeud*> sequences);
     ~NoeudInstEcrire() {}
     int executer();
-    
+    void toPython(ostream &out, unsigned int indentation);
+
 private:
     std::vector<Noeud*> m_sequences;
 };
