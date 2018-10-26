@@ -26,8 +26,9 @@
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" testpoulpe.plp</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" testpoulpe.plp -p</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" testpoulpe.plp</runcommand>
+        <runcommand>"${OUTPUT_PATH}" testpoulpe.plp -p</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <console-type>2</console-type>

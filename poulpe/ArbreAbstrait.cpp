@@ -5,6 +5,9 @@
 #include "SymboleValue.h"
 #include "Exceptions.h"
 
+
+Noeud::~Noeud() {}
+void Noeud::toPython(ostream &out, unsigned int indentation){}
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudSeqInst
 ////////////////////////////////////////////////////////////////////////////////
@@ -40,7 +43,7 @@ int NoeudAffectation::executer() {
   return 0; // La valeur renvoyée ne représente rien !
 }
 void NoeudAffectation::toPython(ostream &out, unsigned int indentation){
-    m_variable->toPython(out, indentation);
+    ((Symbole *)m_variable)->Symbole::toPython(out, indentation);
     out << " = ";
     m_expression->toPython(out, 0);
     out << endl;
@@ -84,22 +87,20 @@ void NoeudOperateurBinaire::toPython(ostream &out, unsigned int indentation){
     m_operateur.toPython(out, indentation);
     out<<" ";
     m_operandeDroit->toPython(out, indentation);
-
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstSi
 ////////////////////////////////////////////////////////////////////////////////
 
-NoeudInstSi::NoeudInstSi(Noeud* condition, Noeud* sequence)
-: m_condition(condition), m_sequence(sequence) {
-}
-
-int NoeudInstSi::executer() {
-  if (m_condition->executer()) m_sequence->executer();
-  return 0; // La valeur renvoyée ne représente rien !
-}
+//NoeudInstSi::NoeudInstSi(Noeud* condition, Noeud* sequence)
+//: m_condition(condition), m_sequence(sequence) {
+//}
+//
+//int NoeudInstSi::executer() {
+//  if (m_condition->executer()) m_sequence->executer();
+//  return 0; // La valeur renvoyée ne représente rien !
+//}
 
 //////////////////////////////////////////////////////////////////////
 // NoeudInstTantQue
@@ -238,7 +239,7 @@ int NoeudInstPour::executer(){
     return 0;
 }
 
-void NoeudInstPour::toPython(ostream& out, unsigned int indentation) {
+void NoeudInstPour::toPython(ostream& out, unsigned int indentation) { //FIXME: test for nullptr
     out << setw(4*indentation) << "for ";
     m_startAff -> toPython(out,0);
     m_condition -> toPython(out,0);

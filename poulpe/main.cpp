@@ -12,10 +12,9 @@ int main(int argc, char* argv[]) {
   } else
     nomFich = argv[1];
   bool convert = false;
-  if (argc == 3 && argv[2] == "-p") {
-      convert = true;
+  if (argc == 3 && strcmp(argv[2],"-p") ==0) {
+    convert = true;
   }
-  ofstream fpython(nomFich.substr(0, nomFich.length() -3) + "py");
   ifstream fichier(nomFich.c_str());
   try {
     Interpreteur interpreteur(fichier);
@@ -26,6 +25,7 @@ int main(int argc, char* argv[]) {
 
         if (convert) {
             cout << endl <<  "================ Convertissage ..." << endl;
+            ofstream fpython((nomFich.substr(0, nomFich.length() -3) + "py").c_str());
             if (interpreteur.getArbre()!=nullptr) interpreteur.getArbre()->toPython(fpython, 0);
             cout << endl <<  "================ Fini" << endl;
 
