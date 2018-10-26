@@ -133,6 +133,12 @@ int NoeudInstRepeter::executer() {
 }
 
 void NoeudInstRepeter::toPython(ostream &out, unsigned int indentation){
+    out << setw(4*indentation) << "while True:" <<endl;
+    m_sequence->toPython(out, indentation +1);
+    out << setw(4*(indentation+1)) << "if not (";
+    m_condition -> toPython(out, 0);
+    out<< ") :" << endl;
+    out << setw(4*(indentation +2)) << "break";
 }
 
 
@@ -152,10 +158,18 @@ int NoeudInstEcrire::executer() {
             std::cout << seq->executer();
         }
         else {
-            throw "essaie d'affichage d'une valeur indefinie";
+            throw "essai d'affichage d'une valeur indefinie";
         }
     }
     return 0; // La valeur renvoyée ne représente rien !
+}
+
+void NoeudInstEcrire::toPython(ostream &out, unsigned int indentation){
+    out<< setw(4*indentation) << "print ";
+    for (Noeud * seq : m_sequences) {
+        out << ((SymboleValue*)seq)->getChaine() << ", "; //python ignore les virgules non suivies
+    }
+    out << endl;
 }
 
 
@@ -179,6 +193,28 @@ int NoeudInstSiRiche::executer(){
     }
     return 0;
 }
+
+void NoeudInstSiRiche::toPython(ostream &out, unsigned int indentation){
+    int i =0;
+    out << setw(4*indentation);// required here because of hacky hack
+    for (Noeud * noeud : m_conditions) {//pour chaque condition
+        if(noeud != nullptr){
+            out <<"if ";
+            noeud->toPython(out, 0);
+            out << " :" << endl;
+            m_sequences[i]->toPython(out, indentation +1);
+            if (m_conditions->size()>i && m_conditions[i+1] != nullptr) {
+                out<< setw(4*indentation)<< "el"; // whoops
+            }
+        }else{ //la sequence est dans un "sinon".
+            out << setw(4*indentation) << "else:"<<endl;
+            m_sequences[i]->toPython(out, indentation +1);
+            break;
+        }
+        i++;
+    }
+}
+
 
 NoeudInstPour::NoeudInstPour(Noeud * startAff, Noeud * condition, Noeud * endAff, Noeud * seqInst)
 :m_startAff(startAff), m_condition(condition), m_endAff(endAff), m_seqInst(seqInst) {
