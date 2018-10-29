@@ -240,12 +240,14 @@ int NoeudInstPour::executer(){
 }
 
 void NoeudInstPour::toPython(ostream& out, unsigned int indentation) { //FIXME: test for nullptr
-    out << setw(4*indentation) << "for ";
-    m_startAff -> toPython(out,0);
-    m_condition -> toPython(out,0);
-    m_endAff -> toPython(out, 0);
+    if(m_startAff != nullptr)
+        m_startAff->toPython(out, indentation);
+    out << setw(4*indentation) << "while ";
+    m_condition->toPython(out, 0);
     out << " :" << endl;
     m_seqInst -> toPython(out, indentation+1);
+    if(endAff != nullptr)
+        m_endAff->toPython(out, indentation +1);
     out << endl;
 }
 
