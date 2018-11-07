@@ -32,3 +32,6 @@
 *.app
 /poulpe/build/
 /poulpe/dist/
+*.xml
+
+*.iml

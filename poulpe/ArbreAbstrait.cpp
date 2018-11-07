@@ -5,6 +5,9 @@
 #include "SymboleValue.h"
 #include "Exceptions.h"
 
+
+Noeud::~Noeud() {}
+void Noeud::toPython(ostream &out, unsigned int indentation){}
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudSeqInst
 ////////////////////////////////////////////////////////////////////////////////
@@ -40,7 +43,7 @@ int NoeudAffectation::executer() {
   return 0; // La valeur renvoyée ne représente rien !
 }
 void NoeudAffectation::toPython(ostream &out, unsigned int indentation){
-    m_variable->toPython(out, indentation);
+    ((Symbole *)m_variable)->Symbole::toPython(out, indentation);
     out << " = ";
     m_expression->toPython(out, 0);
     out << endl;
@@ -81,21 +84,23 @@ int NoeudOperateurBinaire::executer() {
 void NoeudOperateurBinaire::toPython(ostream &out, unsigned int indentation){
     m_operandeGauche->toPython(out, indentation);
     out<<" ";
-    m_operateur->toPython(out, indentation);
+    m_operateur.toPython(out, indentation);
+    out<<" ";
+    m_operandeDroit->toPython(out, indentation);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudInstSi
 ////////////////////////////////////////////////////////////////////////////////
 
-NoeudInstSi::NoeudInstSi(Noeud* condition, Noeud* sequence)
-: m_condition(condition), m_sequence(sequence) {
-}
-
-int NoeudInstSi::executer() {
-  if (m_condition->executer()) m_sequence->executer();
-  return 0; // La valeur renvoyée ne représente rien !
-}
+//NoeudInstSi::NoeudInstSi(Noeud* condition, Noeud* sequence)
+//: m_condition(condition), m_sequence(sequence) {
+//}
+//
+//int NoeudInstSi::executer() {
+//  if (m_condition->executer()) m_sequence->executer();
+//  return 0; // La valeur renvoyée ne représente rien !
+//}
 
 //////////////////////////////////////////////////////////////////////
 // NoeudInstTantQue
@@ -203,7 +208,7 @@ void NoeudInstSiRiche::toPython(ostream &out, unsigned int indentation){
             noeud->toPython(out, 0);
             out << " :" << endl;
             m_sequences[i]->toPython(out, indentation +1);
-            if (m_conditions->size()>i && m_conditions[i+1] != nullptr) {
+            if (m_conditions.size()>i && m_conditions[i+1] != nullptr) {
                 out<< setw(4*indentation)<< "el"; // whoops
             }
         }else{ //la sequence est dans un "sinon".
@@ -234,13 +239,15 @@ int NoeudInstPour::executer(){
     return 0;
 }
 
-void NoeudInstPour::toPython(ostream& out, unsigned int indentation) {
-    out << setw(4*indentation) << "for ";
-    m_startAff -> toPython(out,0);
-    m_condition -> toPython(out,0);
-    m_endAff -> toPython(out, 0);
+void NoeudInstPour::toPython(ostream& out, unsigned int indentation) { //FIXME: test for nullptr
+    if(m_startAff != nullptr)
+        m_startAff->toPython(out, indentation);
+    out << setw(4*indentation) << "while ";
+    m_condition->toPython(out, 0);
     out << " :" << endl;
     m_seqInst -> toPython(out, indentation+1);
+    if(endAff != nullptr)
+        m_endAff->toPython(out, indentation +1);
     out << endl;
 }
 
@@ -260,7 +267,7 @@ int NoeudInstLire::executer(){
     return 0;
 }
 
-void void NoeudInstLire::toPython(ostream& out, unsigned int indentation) {
+void NoeudInstLire::toPython(ostream& out, unsigned int indentation) {
     for (Noeud* lecture : m_lectures){
         out << setw(4*indentation) << ((SymboleValue*)lecture)-> getChaine()
                 << "input(int())" << endl;
