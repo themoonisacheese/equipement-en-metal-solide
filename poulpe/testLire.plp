@@ -1,0 +1,7 @@
+procedure principale()
+
+  ecrire("entrez une valeur pour i, puis pour j.");
+  lire(i,j);
+  ecrire("i = ", i, " ;j = ", j);
+
+finproc

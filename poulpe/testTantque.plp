@@ -1,0 +1,10 @@
+procedure principale()
+  i = 0;
+  ecrire("avant tantque: i=",i);
+
+  tantque(i<10)
+    i= i+2;
+  fintantque
+  ecrire("apres tantque: i=",i);
+
+finproc

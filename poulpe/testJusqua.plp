@@ -1,0 +1,10 @@
+procedure principale()
+  i = 0;
+  ecrire("avant repeter: i=",i);
+
+  repeter
+    i = i+1;
+  jusqua(i>20)
+  ecrire("apres repeter: i=",i);
+
+finproc

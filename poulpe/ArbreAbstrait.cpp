@@ -44,7 +44,7 @@ int NoeudAffectation::executer() {
   return 0; // La valeur renvoyée ne représente rien !
 }
 void NoeudAffectation::toPython(ostream &out, unsigned int indentation){
-    out << setw(4*indentation);
+    out << string(4*(indentation), ' ');
     ((SymboleValue *)m_variable)->toPython(out, indentation);
     out << " = ";
     if ((typeid(*m_expression)==typeid(SymboleValue))) {
@@ -122,7 +122,7 @@ int NoeudInstTantQue::executer() {
 }
 
 void NoeudInstTantQue::toPython(ostream& out, unsigned int indentation) {
-    out << setw(4*indentation) << "while ";
+    out << string(4*(indentation), ' ') << "while ";
     m_condition -> toPython(out,0);
     out << " :" << endl;
     m_sequence -> toPython(out, indentation+1);
@@ -139,17 +139,17 @@ NoeudInstRepeter::NoeudInstRepeter(Noeud* condition, Noeud* sequence)
 }
 
 int NoeudInstRepeter::executer() {
-    do {m_sequence->executer(); } while(m_condition->executer());
+    do {m_sequence->executer(); } while(not(m_condition->executer()));
     return 0; // La valeur renvoyée ne représente rien !
 }
 
 void NoeudInstRepeter::toPython(ostream &out, unsigned int indentation){
-    out << setw(4*indentation) << "while True:" <<endl;
+    out << string(4*(indentation), ' ') << "while True:" <<endl;
     m_sequence->toPython(out, indentation +1);
-    out << setw(4*(indentation+1)) << "if not (";
+    out << string(4*(indentation+1), ' ')<< "if (";
     m_condition -> toPython(out, 0);
     out<< ") :" << endl;
-    out << setw(4*(indentation +2)) << "break";
+    out << string(4*(indentation+2), ' ') << "break" << endl;
 }
 
 
@@ -177,7 +177,7 @@ int NoeudInstEcrire::executer() {
 }
 
 void NoeudInstEcrire::toPython(ostream &out, unsigned int indentation){
-    out<< setw(4*indentation) << "print ";
+    out<< string(4*(indentation), ' ') << "print ";
     for (Noeud * seq : m_sequences) {
         out << ((SymboleValue*)seq)->getChaine() << ", "; //python ignore les virgules non suivies
     }
@@ -209,7 +209,7 @@ int NoeudInstSiRiche::executer(){
 
 void NoeudInstSiRiche::toPython(ostream &out, unsigned int indentation){
     int i =0;
-    out << setw(4*indentation);// required here because of hacky hack
+    out << string(4*(indentation), ' ');// required here because of hacky hack
     for (Noeud * noeud : m_conditions) {//pour chaque condition
         if(noeud != nullptr){
             out <<"if ";
@@ -217,10 +217,10 @@ void NoeudInstSiRiche::toPython(ostream &out, unsigned int indentation){
             out << " :" << endl;
             m_sequences[i]->toPython(out, indentation +1);
             if (m_conditions.size()>i && m_conditions[i+1] != nullptr) {
-                out<< setw(4*indentation)<< "el"; // whoops
+                out<< string(4*(indentation), ' ')<< "el"; // whoops
             }
         }else{ //la sequence est dans un "sinon".
-            out << setw(4*indentation) << "else:"<<endl;
+            out << string(4*(indentation), ' ') << "else:"<<endl;
             m_sequences[i]->toPython(out, indentation +1);
             break;
         }
@@ -250,7 +250,7 @@ int NoeudInstPour::executer(){
 void NoeudInstPour::toPython(ostream& out, unsigned int indentation) { //FIXME: test for nullptr
     if(m_startAff != nullptr)
         m_startAff->toPython(out, indentation);
-    out << setw(4*indentation) << "while ";
+    out << string(4*(indentation), ' ') << "while ";
     m_condition->toPython(out, 0);
     out << " :" << endl;
     m_seqInst -> toPython(out, indentation+1);
@@ -277,7 +277,7 @@ int NoeudInstLire::executer(){
 
 void NoeudInstLire::toPython(ostream& out, unsigned int indentation) {
     for (Noeud* lecture : m_lectures){
-        out << setw(4*indentation) << ((SymboleValue*)lecture)-> getChaine()
+        out << string(4*(indentation), ' ') << ((SymboleValue*)lecture)-> getChaine() << " = "
                 << "input(int())" << endl;
 
     }
