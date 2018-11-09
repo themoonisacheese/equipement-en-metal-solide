@@ -23,3 +23,7 @@ ostream & operator<<(ostream & cout, const SymboleValue & symbole) {
   else cout << "indefinie ";
   return cout;
 }
+
+void SymboleValue::toPython(std::ostream & out, int indentation){
+  out<<this->getChaine();
+}

@@ -63,6 +63,7 @@ ostream & operator<<(ostream & cout, const Symbole & symbole) {
 }
 
 void Symbole::toPython(ostream &out, unsigned int indentation){
-    out<< m_chaine;
+    const char* str;
+    str = this->m_chaine.data();
+    out<< str;
 }
-

@@ -7,7 +7,7 @@
 
 
 Noeud::~Noeud() {}
-void Noeud::toPython(ostream &out, unsigned int indentation){}
+// void Noeud::toPython(ostream &out, unsigned int indentation){}
 ////////////////////////////////////////////////////////////////////////////////
 // NoeudSeqInst
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,8 +21,9 @@ int NoeudSeqInst::executer() {
   return 0; // La valeur renvoyée ne représente rien !
 }
 void NoeudSeqInst::toPython(ostream &out, unsigned int indentation){
-    for (unsigned int i = 0; i < m_instructions.size(); i++)
-        m_instructions[i]->toPython(out, indentation);
+  for (auto inst:m_instructions){
+    inst->toPython(out, indentation);
+  }
 }
 
 void NoeudSeqInst::ajoute(Noeud* instruction) {
@@ -43,9 +44,10 @@ int NoeudAffectation::executer() {
   return 0; // La valeur renvoyée ne représente rien !
 }
 void NoeudAffectation::toPython(ostream &out, unsigned int indentation){
-    ((Symbole *)m_variable)->Symbole::toPython(out, indentation);
+    out << setw(4*indentation);
+    ((SymboleValue *)m_variable)->toPython(out, indentation);
     out << " = ";
-    m_expression->toPython(out, 0);
+    ((SymboleValue *)m_expression)->toPython(out, 0);
     out << endl;
 }
 
@@ -82,11 +84,11 @@ int NoeudOperateurBinaire::executer() {
 }
 
 void NoeudOperateurBinaire::toPython(ostream &out, unsigned int indentation){
-    m_operandeGauche->toPython(out, indentation);
+    ((SymboleValue *)m_operandeGauche)->toPython(out, indentation);
     out<<" ";
     m_operateur.toPython(out, indentation);
     out<<" ";
-    m_operandeDroit->toPython(out, indentation);
+    ((SymboleValue *)m_operandeDroit)->toPython(out, indentation);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -166,6 +168,7 @@ int NoeudInstEcrire::executer() {
             throw "essai d'affichage d'une valeur indefinie";
         }
     }
+    std::cout<<endl;
     return 0; // La valeur renvoyée ne représente rien !
 }
 
@@ -246,7 +249,7 @@ void NoeudInstPour::toPython(ostream& out, unsigned int indentation) { //FIXME: 
     m_condition->toPython(out, 0);
     out << " :" << endl;
     m_seqInst -> toPython(out, indentation+1);
-    if(endAff != nullptr)
+    if(m_endAff != nullptr)
         m_endAff->toPython(out, indentation +1);
     out << endl;
 }
@@ -271,8 +274,6 @@ void NoeudInstLire::toPython(ostream& out, unsigned int indentation) {
     for (Noeud* lecture : m_lectures){
         out << setw(4*indentation) << ((SymboleValue*)lecture)-> getChaine()
                 << "input(int())" << endl;
-        
+
     }
 }
-
-

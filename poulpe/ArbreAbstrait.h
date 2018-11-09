@@ -20,7 +20,7 @@ class Noeud {
     virtual int  executer() =0 ; // Méthode pure (non implémentée) qui rend la classe abstraite
     virtual void ajoute(Noeud* instruction) { throw OperationInterditeException(); }
     virtual ~Noeud();// Présence d'un destructeur virtuel conseillée dans les classes abstraites
-    virtual void toPython(ostream &out, unsigned int indentation); //traduit l'instruction en python et l'ecrit dans out.
+    virtual void toPython(ostream &out, unsigned int indentation) = 0; //traduit l'instruction en python et l'ecrit dans out.
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ class NoeudAffectation : public Noeud {
     ~NoeudAffectation() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();        // Exécute (évalue) l'expression et affecte sa valeur à la variable
     void toPython(ostream &out, unsigned int indentation);
-    
+
   private:
     Noeud* m_variable;
     Noeud* m_expression;
@@ -64,7 +64,7 @@ class NoeudOperateurBinaire : public Noeud {
    ~NoeudOperateurBinaire() {} // A cause du destructeur virtuel de la classe Noeud
     int executer();            // Exécute (évalue) l'opération binaire)
     void toPython(ostream &out, unsigned int indentation);
-    
+
   private:
     Symbole m_operateur;
     Noeud*  m_operandeGauche;
@@ -96,14 +96,14 @@ class NoeudInstSiRiche : public Noeud {
     int executer();  // Exécute l'instruction si riche.
     void toPython(ostream &out, unsigned int indentation); //traduit l'instruction en python et l'ecrit dans out.
 
-    
+
   private:
       std::vector<Noeud*> m_conditions;
       std::vector<Noeud*> m_sequences;
 };
 
 class NoeudInstPour : public Noeud {
-// Classe pour représenter un noeud "instruction pour" 
+// Classe pour représenter un noeud "instruction pour"
   public:
     NoeudInstPour(Noeud * startAff, Noeud * condition, Noeud * endAff, Noeud * seqInst);
    ~NoeudInstPour() {} // A cause du destructeur virtuel de la classe Noeud
@@ -118,7 +118,7 @@ class NoeudInstPour : public Noeud {
 };
 
 class NoeudInstLire : public Noeud {
-// Classe pour représenter un noeud "instruction lire" 
+// Classe pour représenter un noeud "instruction lire"
   public:
     NoeudInstLire(std::vector<Noeud*> lectures);
    ~NoeudInstLire() {} // A cause du destructeur virtuel de la classe Noeud
@@ -132,7 +132,7 @@ class NoeudInstLire : public Noeud {
 
 //class NoeudInstSiRiche : public Noeud{
 //    public:
-//       
+//
 //};
 
 class NoeudInstTantQue : public Noeud {
@@ -143,7 +143,7 @@ public:
     ~NoeudInstTantQue() {}
     int executer();
     void toPython(ostream& out, unsigned int indentation);
-    
+
 private:
     Noeud* m_condition;
     Noeud* m_sequence;
@@ -156,7 +156,7 @@ public:
     int executer();
     void toPython(ostream &out, unsigned int indentation);
 
-    
+
 private:
     Noeud* m_condition;
     Noeud* m_sequence;

@@ -1,0 +1,13 @@
+procedure principale()
+  i = 5;
+  ecrire("i=",i);
+  si(i>10)
+    i = 1;
+  sinonsi(i<10)
+    i = 2;
+  sinon
+    i = 3;
+  finsi
+  ecrire("apres si: i=",i);
+
+finproc
