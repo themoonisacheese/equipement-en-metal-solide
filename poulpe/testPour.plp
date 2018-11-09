@@ -1,0 +1,11 @@
+procedure principale()
+  i=0;
+  j=10;
+  ecrire("avant pour: i=",i);
+  ecrire("avant pour: j=",j);
+  pour(; i<5; i= i+1)
+    j=j+1;
+  finpour
+  ecrire("apres pour: i=",i);
+  ecrire("apres pour: j=",j);
+finproc

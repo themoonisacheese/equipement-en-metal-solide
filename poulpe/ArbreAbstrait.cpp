@@ -47,7 +47,11 @@ void NoeudAffectation::toPython(ostream &out, unsigned int indentation){
     out << setw(4*indentation);
     ((SymboleValue *)m_variable)->toPython(out, indentation);
     out << " = ";
-    ((SymboleValue *)m_expression)->toPython(out, 0);
+    if ((typeid(*m_expression)==typeid(SymboleValue))) {
+      ((SymboleValue *)m_expression)->toPython(out, 0);
+    } else {
+      m_expression->toPython(out, 0);
+    }
     out << endl;
 }
 
@@ -177,6 +181,7 @@ void NoeudInstEcrire::toPython(ostream &out, unsigned int indentation){
     for (Noeud * seq : m_sequences) {
         out << ((SymboleValue*)seq)->getChaine() << ", "; //python ignore les virgules non suivies
     }
+    out << "\"\\n\"";
     out << endl;
 }
 
